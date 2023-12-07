@@ -19,6 +19,7 @@
     "expo-auth-session": "~5.0.2",
     "expo-camera": "~13.4.4",
     "expo-image-picker": "~14.3.2",
+    "expo-location": "~16.1.0",
     "expo-random": "~13.2.0",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
@@ -35,7 +36,7 @@
     "react-native-star-rating": "^1.1.0",
     "react-native-star-rating-widget": "^1.7.3",
     "react-native-status-bar-height": "^2.6.0",
-    "expo-location": "~16.1.0"
+    "react-native-vector-icons": "^10.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
