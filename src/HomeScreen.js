@@ -19,6 +19,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 const db = getFirestore(app);
 
 const API_KEY = 'd5d622b87e057c9805f232ce7a7f8eea';
@@ -26,44 +27,31 @@ const API_KEY = 'd5d622b87e057c9805f232ce7a7f8eea';
 const HomeScreen = () => {
     const [weatherData, setWeatherData] = useState(null);
     const [location, setLocation] = useState(null);
-   
+
     const [forecastData, setForecastData] = useState([]);
 
     const childComponentRef = useRef();
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    
+
     useEffect(() => {
-        
+
         async function fetchData() {
             try {
-                const dataCollection = collection(db, 'feedback'); 
-                const querySnapshot = await getDocs(dataCollection);
-        
+                const q = query(collection(db, 'feedback'), where('comfortFeedback', '==', 'comfortable'));
+                const querySnapshot = await getDocs(q);
+
                 const fetchedData = [];
                 querySnapshot.forEach((doc) => {
                     fetchedData.push(doc.data());
                 });
-
                 setData(fetchedData);
                 setLoading(false);
-                
-                //const q = query(collection(db, 'feedback'), where('feelsLike', '>', weatherData - 100), where('feelsLike', '<', weatherData + 100));
-                const q = query(collection(db, 'feedback'), where('feelsLike', '>', weatherData), where('feelsLike', '<', weatherData));
-                querySnapshot = await getDocs(q);
 
 
-              } catch (error) {
+            } catch (error) {
                 console.error('Error fetching data: ', error);
-              }
-        };
-
-        const formatDate = (timestamp) => {
-            if (timestamp instanceof Date) {
-                return timestamp.toISOString(); // Or format it as you prefer
-            } else {
-                return timestamp ? timestamp.toDate().toISOString() : '';
             }
         };
 
@@ -139,7 +127,7 @@ const HomeScreen = () => {
         fetchData();
     }, []);
 
-    // ���� ������
+    //            
     const getWeatherIcon = (weatherCondition) => {
         switch (weatherCondition) {
             case 'Clear':
@@ -159,7 +147,6 @@ const HomeScreen = () => {
         }
     };
 
-    // ���� ��ȣ
     const DegreeSymbol = () => <Text>&#176;</Text>;
 
     if (!weatherData) {
@@ -205,8 +192,7 @@ const HomeScreen = () => {
 
     const getWeatherIcon_Forecast = (icon) => `http://openweathermap.org/img/wn/${icon}.png`;
 
-    /////// ���� �ʿ�
-    // ���Ƿ� ������, �Ź� ���� ������
+
     const topImage = require('../assets/top-image.png'); // Replace with the actual path
     const bottomImage = require('../assets/bottom-image.png'); // Replace with the actual path
     const shoesImage = require('../assets/shoes-image.png'); // Replace with the actual path
@@ -218,7 +204,7 @@ const HomeScreen = () => {
         </View>
     );
 
-    
+
     return (
         <View style={styles.container}>
             <View>
@@ -246,7 +232,6 @@ const HomeScreen = () => {
                         <Text>Rain: {weatherData.clouds.all}%</Text>
                         <Text>Humidity: {weatherData.main.humidity}%</Text>
                     </View>
-                    {/* ���� ���� */}
                     <View style={styles.forecastContainer}>
                         <ScrollView
                             horizontal
@@ -258,7 +243,7 @@ const HomeScreen = () => {
                         </ScrollView>
                     </View>
                 </View>
-                
+
                 {/* Clothing images */}
                 <View style={styles.clothingContainer}>
                     <Text>Recommended clothes</Text>
@@ -269,30 +254,31 @@ const HomeScreen = () => {
                     </View>
                 </View>
 
-                { /*���� �Ծ��� ��*/}
                 <View style={styles.previousClothesContainer}>
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={styles.previousClothesScrollView}
                     >
-                    
 
-                    {loading ? (
-                        <Text>Loading...</Text>
-                    ) : (
-                        data.map((item, index) => (
-                            <View key={index}>
-                                <Image
-                                    style={styles.previousClothImage}
-                                    source={{ uri: item.downloadURL }} // Use source attribute for images in React Native
-                                />
-                                {/* <img style={styles.previousClothImage}
+
+                        {loading ? (
+                            <Text>Loading...</Text>
+                        ) : (
+                                data.map((item, index) => (
+                                    <View key={index}>
+                                        
+                                            
+                                        <Image
+                                            style={styles.previousClothImage}
+                                            source={{ uri: item.downloadURL }} // Use source attribute for images in React Native
+                                        />
+                                        {/* <img style={styles.previousClothImage}
                                     src={item.downloadURL} /> */}
-                                {/* <Text style={styles.previousClothDate}>{item.downloadURL}</Text> */}
-                            </View>
-                        ))
-                    )}
+                                        {/* <Text style={styles.previousClothDate}>{item.downloadURL}</Text> */}
+                                    </View>
+                            ))
+                        )}
                     </ScrollView>
                 </View>
 
