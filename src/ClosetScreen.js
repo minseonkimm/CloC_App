@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 10,
     },
     swiper: {
         height: 200,
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     bottomImage: {
-        width: 130,
-        height: 250,
+        width: 150,
+        height: 230,
         resizeMode: 'contain',
         borderRadius: 8,
     },

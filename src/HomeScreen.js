@@ -20,6 +20,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+
 const db = getFirestore(app);
 
 const API_KEY = 'd5d622b87e057c9805f232ce7a7f8eea';
