@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import Swiper from 'react-native-swiper';
 
 const ClosetScreen = () => {
 
-    /////// ╥ндц юл╧лаЖ
+    /////// О©╫О©╫О©╫О©╫ О©╫л╧О©╫О©╫О©╫
 
     const topImages = [
         require('../assets/top1.png'),
