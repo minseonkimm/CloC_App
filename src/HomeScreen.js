@@ -283,8 +283,12 @@ const HomeScreen = () => {
                     ) : (
                         data.map((item, index) => (
                             <View key={index}>
-                                <img style={styles.previousClothImage}
-                                    src={item.downloadURL} />
+                                <Image
+                                    style={styles.previousClothImage}
+                                    source={{ uri: item.downloadURL }} // Use source attribute for images in React Native
+                                />
+                                {/* <img style={styles.previousClothImage}
+                                    src={item.downloadURL} /> */}
                                 {/* <Text style={styles.previousClothDate}>{item.downloadURL}</Text> */}
                             </View>
                         ))
